@@ -13,18 +13,18 @@ public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="product_id")
+	@Column(name="product_id", length = 4)
 	private Long id;
 	
-	@Column(name="product_name")
+	@Column(name="product_name", nullable = false, length = 255)
 	private String name;
-	@Column(name="model_year")
+	@Column(name="model_year", nullable = false, length = 2)
 	private int modelYear;
-	@Column(name="list_price")
+	@Column(name="list_price", nullable = false)
 	private double listPrice;
-	@Column(name="brand_id")
+	@Column(name="brand_id", nullable = false, length = 4)
 	private Brand brand;
-	@Column(name="category_id")
+	@Column(name="category_id", nullable = false, length = 4)
 	private Category category;
 	
 	public Long getId() {

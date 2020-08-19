@@ -15,7 +15,7 @@ public class Category {
 	@Column(name="category_id",length = 4)
 	private Long id;
 	
-	@Column(name="category_name")
+	@Column(name="category_name", nullable = false, length = 255)
 	private String name;
 	
 	public Long getId() {
