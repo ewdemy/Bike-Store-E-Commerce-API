@@ -9,11 +9,20 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="categories")
 public class Category {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="category_id")
 	@Size(max = 4)
 	private Long id;
@@ -22,27 +31,6 @@ public class Category {
 	@Size(max = 255)
 	@NotBlank
 	private String name;
-	
-	
-	
-	public Category(@Size(max = 255) @NotBlank String name) {
-		this.name = name;
-	}
-	public Category() {
-		
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	
 }
