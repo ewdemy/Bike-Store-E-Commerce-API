@@ -11,6 +11,7 @@ public class Order {
 	private Date shippedDate;
 	private Store store;
 	private Staff staff;
+	
 	public Long getId() {
 		return id;
 	}

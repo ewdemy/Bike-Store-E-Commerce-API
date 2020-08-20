@@ -1,12 +1,14 @@
 package com.mrcruz.bikestore.model;
 
+import java.math.BigDecimal;
+
 public class OrderItems {
 	private Long id;
 	private Order order;
 	private Product product;
 	private int quantity;
-	private double listPrice;
-	private double discount;
+	private BigDecimal listPrice;
+	private BigDecimal discount;
 	
 	public Long getId() {
 		return id;
@@ -32,16 +34,16 @@ public class OrderItems {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public double getListPrice() {
+	public BigDecimal getListPrice() {
 		return listPrice;
 	}
-	public void setListPrice(double listPrice) {
+	public void setListPrice(BigDecimal listPrice) {
 		this.listPrice = listPrice;
 	}
-	public double getDiscount() {
+	public BigDecimal getDiscount() {
 		return discount;
 	}
-	public void setDiscount(double discount) {
+	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
 	}
 	
