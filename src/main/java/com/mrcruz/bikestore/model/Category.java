@@ -22,13 +22,11 @@ import lombok.NoArgsConstructor;
 @Table(name="categories")
 public class Category {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="category_id")
-	@Size(max = 4)
 	private Long id;
 	
 	@Column(name="category_name")
-	@Size(max = 255)
 	@NotBlank
 	private String name;
 	

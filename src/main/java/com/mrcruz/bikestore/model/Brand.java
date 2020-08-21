@@ -23,13 +23,11 @@ import lombok.NoArgsConstructor;
 public class Brand {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="brand_id")
-	@Size(max = 4)
 	private Long id;
 	
 	@Column(name="brand_name")
-	@Size(max = 255)
 	@NotBlank
 	private String name;
 	

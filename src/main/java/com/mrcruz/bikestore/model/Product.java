@@ -31,29 +31,27 @@ import lombok.NoArgsConstructor;
 public class Product {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="product_id", length = 4)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="product_id")
 	private Long id;
 	
-	@Column(name="product_name", length = 255)
+	@Column(name="product_name")
 	@NotNull
 	private String name;
 	
 	
 	@NotNull
-	@Length(max = 4)
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
 	
 	
 	@NotNull
-	@Length(max = 4)
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@Column(name="model_year", length = 2)
+	@Column(name="model_year")
 	@NotNull
 	private int modelYear;
 	
