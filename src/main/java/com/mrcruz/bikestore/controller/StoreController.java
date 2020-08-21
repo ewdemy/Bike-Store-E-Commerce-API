@@ -16,30 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mrcruz.bikestore.model.Customer;
-import com.mrcruz.bikestore.repository.CustomerRepository;
-import com.mrcruz.bikestore.service.CustomerService;
+import com.mrcruz.bikestore.model.Store;
+import com.mrcruz.bikestore.repository.StoreRepository;
+import com.mrcruz.bikestore.service.StoreService;
 
 @RestController
-@RequestMapping("/api/customers")
-public class CustomerController {
+@RequestMapping("/api/stores")
+public class StoreController {
 	
 	@Autowired
-	private CustomerRepository customerRepository;
+	private StoreRepository storeRepository;
 	
 	@Autowired
-	private CustomerService customerService;
+	private StoreService storeService;
 	
 	@GetMapping
-	public List<Customer> getCustomers(){
-		return customerRepository.findAll();
+	public List<Store> getStores(){
+		return storeRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Customer> getCustomer(@PathVariable(value="id") Long id){
-		Optional<Customer> customer = customerRepository.findById(id);
-		if(customer.isPresent()) {
-			return ResponseEntity.ok(customer.get());
+	public ResponseEntity<Store> getStore(@PathVariable(value="id") Long id){
+		Optional<Store> store = storeRepository.findById(id);
+		if(store.isPresent()) {
+			return ResponseEntity.ok(store.get());
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -47,26 +47,30 @@ public class CustomerController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Customer createCustomer(@RequestBody Customer customer) {
-		return customerService.create(customer);
+	public Store createStore(@RequestBody Store store) {
+		return storeService.create(store);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable(value="id") Long id, @RequestBody Customer customer) {
-		if(!customerRepository.existsById(id)) {
+	public ResponseEntity<Store> updateStore(@PathVariable(value="id") Long id, @RequestBody Store store){
+		if(!storeRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		customer.setId(id);
-		customer = customerService.create(customer);
-		return ResponseEntity.ok(customer);
+		
+		store.setId(id);
+		store = storeService.create(store);
+		
+		return ResponseEntity.ok(store);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity deleteCustomer(@PathVariable(value="id") Long id) {
-		if(!customerRepository.existsById(id)) {
+	public ResponseEntity deleteStore(@PathVariable(value="id") Long id) {
+		if(!storeRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		customerService.delete(id);
+		
+		storeService.delete(id);
+		
 		return ResponseEntity.noContent().build();
 	}
 
