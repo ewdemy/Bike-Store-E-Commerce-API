@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -37,7 +38,7 @@ public class Staff {
 	@NotNull
 	private String lastName;
 	
-	@Column(name="email",unique = true)
+	@Column(name="email",unique = true )
 	@NotNull
 	private String email;
 	
@@ -51,9 +52,11 @@ public class Staff {
 	@JoinColumn(name = "store_id")
 	private Store store;
 	
-	//@OneToMany
-	//@JoinColumn(name = "manager_id", nullable = true)
+	@OneToOne
+	@JoinColumn(name = "manager_id")
 	private Staff manager;
+	
+	
 	
 
 	
