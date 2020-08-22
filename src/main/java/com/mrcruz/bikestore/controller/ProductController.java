@@ -21,7 +21,7 @@ import com.mrcruz.bikestore.repository.ProductRepository;
 import com.mrcruz.bikestore.service.ProductService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/bikes")
 public class ProductController {
 	
 	@Autowired

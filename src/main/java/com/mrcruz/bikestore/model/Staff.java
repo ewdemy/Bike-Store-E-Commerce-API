@@ -1,63 +1,61 @@
 package com.mrcruz.bikestore.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="staffs")
 public class Staff {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "staff_id")
 	private Long id;
+	
+	@Column(name="first_name")
+	@NotNull
 	private String firstName;
+	
+	@Column(name="last_name")
+	@NotNull
 	private String lastName;
+	
+	@Column(name="email",unique = true)
+	@NotNull
 	private String email;
+	
 	private String phone;
+	
+	@NotNull
 	private int active;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "store_id")
 	private Store store;
+	
+	//@OneToMany
+	//@JoinColumn(name = "manager_id", nullable = true)
 	private Staff manager;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public int getActive() {
-		return active;
-	}
-	public void setActive(int active) {
-		this.active = active;
-	}
-	public Store getStore() {
-		return store;
-	}
-	public void setStore(Store store) {
-		this.store = store;
-	}
-	public Staff getManager() {
-		return manager;
-	}
-	public void setManager(Staff manager) {
-		this.manager = manager;
-	}
+
 	
 	
 	
