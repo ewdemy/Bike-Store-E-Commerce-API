@@ -1,65 +1,66 @@
 package com.mrcruz.bikestore.model;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="orders")
 public class Order {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_id")
 	private Long id;
+	
+	@OneToOne
+	@JoinColumn(name = "customer_id", nullable = true)
 	private Customer customer;
+	
+	
+	@Column(name = "order_status")
+	@NotNull
 	private int status;
-	private Date date;
-	private Date requiredDate;
-	private Date shippedDate;
+	
+	@Column(name = "order_date")
+	@NotNull
+	private OffsetDateTime date;
+	
+	@Column(name = "required_date")
+	private OffsetDateTime requiredDate;
+	
+	@Column(name = "shipped_date")
+	private OffsetDateTime shippedDate;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "store_id")
 	private Store store;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
 	private Staff staff;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public Date getRequiredDate() {
-		return requiredDate;
-	}
-	public void setRequiredDate(Date requiredDate) {
-		this.requiredDate = requiredDate;
-	}
-	public Date getShippedDate() {
-		return shippedDate;
-	}
-	public void setShippedDate(Date shippedDate) {
-		this.shippedDate = shippedDate;
-	}
-	public Store getStore() {
-		return store;
-	}
-	public void setStore(Store store) {
-		this.store = store;
-	}
-	public Staff getStaff() {
-		return staff;
-	}
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
+
 	
 	
 	
