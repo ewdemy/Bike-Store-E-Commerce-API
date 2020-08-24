@@ -31,7 +31,7 @@ public class Order {
 	@Column(name = "order_id")
 	private Long id;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = true)
 	private Customer customer;
 	
