@@ -16,10 +16,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItemId implements Serializable{
+public class OrderItemId implements Serializable {
+
 	
 	private Long order;
 	
+	
 	private Long itemId;
-
+	
+	public OrderItemId(Long orderId) {
+		this.order = orderId;
+	}
 }
