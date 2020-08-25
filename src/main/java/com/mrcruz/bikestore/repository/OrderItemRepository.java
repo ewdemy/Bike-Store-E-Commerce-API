@@ -14,6 +14,7 @@ import com.mrcruz.bikestore.model.OrderItemId;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemId>{
 	
+	/*
 	@Modifying
 	@Query(value = "insert into order_items(order_id,discount,list_price,quantity,product_id) values(:order,:discount,:price,:quantity,:product)", nativeQuery = true)
 	void saveOrderItem(
@@ -22,5 +23,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemI
 			@Param("price")BigDecimal listPrice, 
 			@Param("quantity")int quantity, 
 			@Param("product")Long productId);
+			
+			*/
 
 }

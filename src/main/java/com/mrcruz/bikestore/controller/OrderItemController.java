@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,13 +51,35 @@ public class OrderItemController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createOrderItem(@RequestBody OrderItem orderItem) {
-		
-		orderItemRepository.saveOrderItem(
-			orderItem.getOrder().getId(), 
-			orderItem.getDiscount(), 
-			orderItem.getListPrice(), 
-			orderItem.getQuantity(), 				
-			orderItem.getProduct().getId());
+	public OrderItem createOrderItem(@RequestBody OrderItem orderItem) {
+		return orderItemService.create(orderItem);
+	
 	}
-}
+	
+	@PutMapping("/{orderId}/{itemId}")
+	public ResponseEntity<OrderItem> updateOrderItem(
+			@PathVariable(value="orderId") Long orderId, 
+			@PathVariable(value="itemId") Long itemId, 
+			@RequestBody OrderItem orderItem ){
+		OrderItemId id = new OrderItemId(orderId,itemId);
+		if(!orderItemRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		orderItem = orderItemService.create(orderItem);
+		return ResponseEntity.ok(orderItem);
+	}
+	
+	@DeleteMapping("/{orderId}/{itemId}")
+	public ResponseEntity deleteOrderItem(
+			@PathVariable(value="orderId") Long orderId, 
+			@PathVariable(value="itemId") Long itemId ){
+		OrderItemId id = new OrderItemId(orderId,itemId);
+		if(!orderItemRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		orderItemService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	}

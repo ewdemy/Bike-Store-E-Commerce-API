@@ -1,9 +1,7 @@
 package com.mrcruz.bikestore.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -39,9 +37,10 @@ public class OrderItem {
 	
 	
 	
-	@Column(name = "item_id")
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@SequenceGenerator(name="pk_sequence",sequenceName="item_id_seq", allocationSize=1) 
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence") 
+	@Column(name="item_id", unique=true, nullable=false)
 	private Long itemId;
 	
 	@NotNull
