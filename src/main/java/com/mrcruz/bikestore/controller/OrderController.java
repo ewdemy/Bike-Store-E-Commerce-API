@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mrcruz.bikestore.model.Order;
+import com.mrcruz.bikestore.model.OrderItem;
+import com.mrcruz.bikestore.model.OrderItemDTO;
 import com.mrcruz.bikestore.repository.OrderRepository;
+import com.mrcruz.bikestore.service.OrderItemService;
 import com.mrcruz.bikestore.service.OrderService;
 
 @RestController
@@ -27,6 +30,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	OrderItemService orderItemService;
 	
 	@GetMapping
 	public List<Order> getOrders(){
@@ -44,8 +50,14 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public Order createOrder(@RequestBody Order order) {
-		return orderService.create(order);
+	public OrderItemDTO createOrder(@RequestBody OrderItemDTO orderItemDTO) {
+		Order order = orderService.create(orderItemDTO.getOrder());
+		OrderItem item = orderItemDTO.getItem();
+		item.setOrder(order);
+		item = orderItemService.create(item);
+		orderItemDTO.setOrder(order);
+		orderItemDTO.setItem(item);
+		return orderItemDTO;
 	}
 	
 	@PutMapping("/{id}")
