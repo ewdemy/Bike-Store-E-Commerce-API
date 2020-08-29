@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mrcruz.bikestore.model.Brand;
@@ -56,10 +57,12 @@ public class ReportController {
 		
 	}
 	
-	@GetMapping("/orders-date/{startDate}/{endDate}")
-	public List<Order>  getOrdersDate(@PathVariable(value="startDate") OffsetDateTime startDate,
-			@PathVariable(value="endDate") OffsetDateTime endDate) {
-		return reportService.getOrdersByDate(startDate, endDate);
+	@GetMapping("/orders-date")
+	public List<Order>  getOrdersDate(@RequestParam("startDate") String startDate,
+			@RequestParam("endDate") String endDate) {
+		 OffsetDateTime start = OffsetDateTime.parse(startDate);
+		 OffsetDateTime end = OffsetDateTime.parse(endDate);
+		return reportService.getOrdersByDate(start, end);
 		
 	}
 	

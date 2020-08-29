@@ -14,7 +14,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemI
 	
 	
 	@Query(value = "select product_id, count(product_id) as qnt "
-			+ "from order_items group by product_id  order by qnt desc limit 5;", nativeQuery = true)
+			+ "from osf.order_items group by product_id  order by qnt desc limit 5;", nativeQuery = true)
 	List<Number> findItem();
 			
 			

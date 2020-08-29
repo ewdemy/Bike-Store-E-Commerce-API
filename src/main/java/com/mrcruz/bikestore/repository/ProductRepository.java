@@ -11,6 +11,6 @@ import com.mrcruz.bikestore.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	@Query(value = "select brand_id, count(product_id) as qnt "
-			+ "from products group by brand_id  order by qnt desc limit 1;", nativeQuery = true)
+			+ "from osf.products group by brand_id  order by qnt desc limit 1;", nativeQuery = true)
 	Number findBrand();
 }

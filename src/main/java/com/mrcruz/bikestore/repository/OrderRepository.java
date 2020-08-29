@@ -14,7 +14,7 @@ import com.mrcruz.bikestore.model.Order;
 public interface OrderRepository extends JpaRepository<Order, Long>{
 	
 	@Query(value = "select customer_id, count(customer_id) as qnt "
-			+ "from orders group by customer_id  order by qnt desc limit 5;", nativeQuery = true)
+			+ "from osf.orders group by customer_id  order by qnt desc limit 5;", nativeQuery = true)
 	List<Number> findCustomers();
 	
 	List<Order> findByCustomer(Customer customer);
