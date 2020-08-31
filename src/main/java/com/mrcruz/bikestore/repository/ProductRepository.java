@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mrcruz.bikestore.model.Product;
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long>{
+public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	@Query(value = "select brand_id, count(product_id) as qnt "
 			+ "from osf.products group by brand_id  order by qnt desc limit 1;", nativeQuery = true)

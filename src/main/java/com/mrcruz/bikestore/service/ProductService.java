@@ -3,6 +3,7 @@ package com.mrcruz.bikestore.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mrcruz.bikestore.exception.BusinessException;
 import com.mrcruz.bikestore.model.Brand;
 import com.mrcruz.bikestore.model.Category;
 import com.mrcruz.bikestore.model.Product;
@@ -24,16 +25,15 @@ public class ProductService {
 	
 	public Product create(Product product) {
 		
-		Brand brand =  brandRepository.findById(product.getBrand().getId()).get();
-		Category category =  categoryRepository.findById(product.getCategory().getId()).get();
+		if(!brandRepository.existsById(product.getBrand().getId()) || !categoryRepository.existsById(product.getCategory().getId())) {
+			throw new BusinessException("Brand or category does not exist!");
+		}
 		
-		product.setBrand(brand);
-		product.setCategory(category);
 		
 		return productRepository.save(product);
 	}
 	
-	public void deleteProduct(Long id) {
+	public void deleteProduct(Integer id) {
 		productRepository.deleteById(id);
 	}
 

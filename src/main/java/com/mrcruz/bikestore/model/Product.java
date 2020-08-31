@@ -32,12 +32,14 @@ import lombok.NoArgsConstructor;
 public class Product {
 	
 	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="products_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
+	@SequenceGenerator(allocationSize=0, name="prod_seq", sequenceName = "osf.products_seq")
 	@Column(name="product_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="product_name")
-	@NotNull
+	@NotBlank
+	@Size(max = 255)
 	private String name;
 	
 	
@@ -52,8 +54,8 @@ public class Product {
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@Column(name="model_year")
 	@NotNull
+	@Column(name="model_year")
 	private int modelYear;
 	
 	@NotNull

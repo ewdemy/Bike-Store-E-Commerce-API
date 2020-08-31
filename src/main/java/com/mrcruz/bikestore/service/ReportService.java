@@ -51,7 +51,7 @@ public class ReportService {
 		List<Number> items = orderItemRepository.findItem();
 
 		for(Number i: items) {
-			Product p = productRepository.findById(i.longValue()).get();
+			Product p = productRepository.findById(i.intValue()).get();
 			products.add(p);
 			
 		}

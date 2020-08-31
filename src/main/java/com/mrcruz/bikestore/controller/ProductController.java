@@ -3,6 +3,8 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> getProduct(@PathVariable(value="id") Long id){
+	public ResponseEntity<Product> getProduct(@PathVariable(value="id") Integer id){
 		Optional<Product> product = productRepository.findById(id);
 		if(product.isPresent()) {
 			return ResponseEntity.ok(product.get());
@@ -47,12 +49,12 @@ public class ProductController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Product createProduct(@RequestBody Product product) {
+	public Product createProduct(@Valid @RequestBody Product product) {
 		return productService.create(product);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> updateProduct(@PathVariable(value="id") Long id, @RequestBody Product product){
+	public ResponseEntity<Product> updateProduct(@Valid @PathVariable(value="id") Integer id, @RequestBody Product product){
 		if(!productRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
@@ -63,7 +65,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity deleteProduct(@PathVariable(value="id") Long id) {
+	public ResponseEntity deleteProduct(@PathVariable(value="id") Integer id) {
 		if(!productRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
