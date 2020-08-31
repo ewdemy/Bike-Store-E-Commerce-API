@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Embeddable
 public class StockId implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "store_id")
 	private Long store;

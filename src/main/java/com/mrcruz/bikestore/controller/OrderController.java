@@ -3,6 +3,8 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +52,7 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public OrderItemDTO createOrder(@RequestBody OrderItemDTO orderItemDTO) {
+	public OrderItemDTO createOrder(@Valid @RequestBody OrderItemDTO orderItemDTO) {
 		Order order = orderService.create(orderItemDTO.getOrder());
 		OrderItem item = orderItemDTO.getItem();
 		item.setOrder(order);
@@ -61,7 +63,7 @@ public class OrderController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Order> updateOrder(@PathVariable(value="id") Long id, @RequestBody Order order){
+	public ResponseEntity<Order> updateOrder(@PathVariable(value="id") Long id, @Valid @RequestBody Order order){
 		if(!orderRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

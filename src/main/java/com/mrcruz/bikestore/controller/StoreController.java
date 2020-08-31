@@ -3,6 +3,8 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +49,12 @@ public class StoreController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Store createStore(@RequestBody Store store) {
+	public Store createStore(@Valid @RequestBody Store store) {
 		return storeService.create(store);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Store> updateStore(@PathVariable(value="id") Long id, @RequestBody Store store){
+	public ResponseEntity<Store> updateStore(@PathVariable(value="id") Long id, @Valid @RequestBody Store store){
 		if(!storeRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

@@ -3,6 +3,8 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +49,12 @@ public class CustomerController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Customer createCustomer(@RequestBody Customer customer) {
+	public Customer createCustomer(@Valid @RequestBody Customer customer) {
 		return customerService.create(customer);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable(value="id") Long id, @RequestBody Customer customer) {
+	public ResponseEntity<Customer> updateCustomer(@PathVariable(value="id") Long id, @Valid @RequestBody Customer customer) {
 		if(!customerRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

@@ -35,11 +35,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
 	@SequenceGenerator(allocationSize=0, name="prod_seq", sequenceName = "osf.products_seq")
 	@Column(name="product_id")
-	private Integer id;
+	private Long id;
 	
 	@Column(name="product_name")
 	@NotBlank
-	@Size(max = 255)
+	@Size
 	private String name;
 	
 	

@@ -3,6 +3,7 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mrcruz.bikestore.exception.BusinessException;
 import com.mrcruz.bikestore.model.Staff;
 import com.mrcruz.bikestore.repository.StaffRepository;
 import com.mrcruz.bikestore.service.StaffService;
@@ -47,12 +49,19 @@ public class StaffController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Staff createStaff(@RequestBody Staff staff) {
+	public Staff createStaff(@Valid @RequestBody Staff staff) {
+		
+		Staff staffExists = staffRepository.findByEmail(staff.getEmail());
+		
+		if(staffExists != null && !staffExists.equals(staff)) {
+			throw new BusinessException("There is already an employee registered with this email!");
+		}
+		
 		return staffService.create(staff);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Staff> updateStaff(@PathVariable(value="id") Long id, @RequestBody Staff staff){
+	public ResponseEntity<Staff> updateStaff(@PathVariable(value="id") Long id, @Valid @RequestBody Staff staff){
 		if(!staffRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
@@ -67,7 +76,7 @@ public class StaffController {
 		if(!staffRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		staffService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

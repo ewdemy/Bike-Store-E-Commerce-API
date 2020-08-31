@@ -9,8 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,22 +30,28 @@ import lombok.NoArgsConstructor;
 public class Staff {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "staff_seq")
+	@SequenceGenerator(allocationSize=0, name="staff_seq", sequenceName = "osf.staffs_seq")
 	@Column(name = "staff_id")
 	private Long id;
 	
 	@Column(name="first_name")
-	@NotNull
+	@NotBlank
+	@Size(max = 50)
 	private String firstName;
 	
 	@Column(name="last_name")
-	@NotNull
+	@NotBlank
+	@Size(max = 50)
 	private String lastName;
 	
 	@Column(name="email",unique = true )
-	@NotNull
+	@NotBlank
+	@Size
+	@Email
 	private String email;
 	
+	@Size(max = 25)
 	private String phone;
 	
 	@NotNull

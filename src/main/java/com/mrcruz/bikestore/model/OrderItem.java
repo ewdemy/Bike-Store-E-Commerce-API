@@ -36,10 +36,9 @@ public class OrderItem {
 	private Order order;
 	
 	
-	
 	@Id 
-	@SequenceGenerator(name="pk_sequence",sequenceName="item_id_seq", allocationSize=1) 
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence") 
+	//@SequenceGenerator(name="pk_sequence",sequenceName="osf.item_id_seq", allocationSize=1) 
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence") 
 	@Column(name="item_id", unique=true, nullable=false)
 	private Long itemId;
 	

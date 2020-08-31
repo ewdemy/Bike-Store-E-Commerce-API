@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -27,7 +28,8 @@ import lombok.NoArgsConstructor;
 public class Order {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ord_seq")
+	@SequenceGenerator(allocationSize=0, name="ord_seq", sequenceName = "osf.orders_seq")
 	@Column(name = "order_id")
 	private Long id;
 	
@@ -45,6 +47,7 @@ public class Order {
 	private OffsetDateTime date;
 	
 	@Column(name = "required_date")
+	@NotNull
 	private OffsetDateTime requiredDate;
 	
 	@Column(name = "shipped_date")

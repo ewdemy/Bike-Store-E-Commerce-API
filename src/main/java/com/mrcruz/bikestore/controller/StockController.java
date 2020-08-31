@@ -3,6 +3,8 @@ package com.mrcruz.bikestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
@@ -47,17 +49,19 @@ public class StockController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Stock createStock(@RequestBody Stock stock) {
+	public Stock createStock(@Valid @RequestBody Stock stock) {
 		stock.setId(new StockId());
 		
 		return stockRepository.save(stock);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Stock> updateStock( @RequestBody Stock stock){
-		if(!stockRepository.existsById(stock.getId())) {
+	@PutMapping("/{sid}/{pid}")
+	public ResponseEntity<Stock> updateStock(@PathVariable("sid") Long sId, @PathVariable("pid") Long pId, @Valid @RequestBody Stock stock){
+		if(!stockRepository.existsById(new StockId(sId,pId))) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		stock.setId(new StockId(sId,pId));
 
 		stock = stockRepository.save(stock);
 		
